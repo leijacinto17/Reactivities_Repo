@@ -1,5 +1,8 @@
+using API.Dependency;
+using Autofac;
+using Autofac.Extensions.DependencyInjection;
+using Infrastructure;
 using Microsoft.EntityFrameworkCore;
-using Persistence;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -20,6 +23,8 @@ builder.Services.AddCors(opt =>
         policy.AllowAnyMethod().AllowAnyHeader().WithOrigins("http://localhost:3000");
     });
 });
+builder.Host.UseServiceProviderFactory(new AutofacServiceProviderFactory());
+builder.Host.ConfigureContainer<ContainerBuilder>(builder => builder.RegisterModule(new Dependencies()));
 
 var app = builder.Build();
 

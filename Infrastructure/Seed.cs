@@ -1,6 +1,6 @@
-﻿using Domain.Model;
+﻿using Domain.Models;
 
-namespace Persistence
+namespace Infrastructure
 {
     public class Seed
     {
