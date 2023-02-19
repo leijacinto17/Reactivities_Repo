@@ -1,4 +1,6 @@
-﻿using Autofac;
+﻿using Application.Queries.Activities;
+using Application.Services.Activities;
+using Autofac;
 using Domain.Interfaces;
 using Infrastructure;
 
@@ -9,6 +11,11 @@ namespace API.Dependency
         protected override void Load(ContainerBuilder builder)
         {
             builder.RegisterType<UnitOfWork>().As<IUnitOfWork>();
+
+            #region Activity
+            builder.RegisterType<ActivitiesServices>().As<IActivitiesServices>();
+            builder.RegisterType<ActivitiesQueryBuilder>().As<IActivitiesQueryBuilder>();
+            #endregion
         }
     }
 }

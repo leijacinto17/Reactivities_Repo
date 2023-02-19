@@ -1,5 +1,6 @@
 ﻿using API.Common;
-using MediatR;
+using Application.Services.Activities;
+using Domain.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -7,17 +8,18 @@ namespace API.Controllers
 {
     public class ActivitiesController : BaseApiController
     {
-        private readonly IMediator _mediator;
-        public ActivitiesController(IMediator mediator)
+        private readonly IActivitiesServices _activitiesServices;
+
+        public ActivitiesController(IActivitiesServices activitiesServices)
         {
-            _mediator = mediator;
+            _activitiesServices = activitiesServices;
         }
 
-        //[HttpGet]
-        //public async Task<IEnumerable<Activity>> GetActivities()
-        //{
-        //    return await _mediator.Send(new List.Query());
-        //}
+        [HttpGet]
+        public async Task<IEnumerable<Activity>> GetActivities()
+        {
+            return await _activitiesServices.GetActivitiesAsync();
+        }
 
         //[HttpGet("{id}")]
         //public async Task<ActionResult<Activity>> GetActivity(Guid id)
