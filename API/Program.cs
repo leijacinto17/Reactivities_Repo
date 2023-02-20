@@ -1,7 +1,4 @@
-using API.Dependency;
-using Application.Core;
-using Autofac;
-using Autofac.Extensions.DependencyInjection;
+using API.Extensions;
 using Infrastructure;
 using Microsoft.EntityFrameworkCore;
 
@@ -10,23 +7,7 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
-builder.Services.AddDbContext<DataContext>(opt =>
-{
-    opt.UseLazyLoadingProxies().UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
-});
-builder.Services.AddCors(opt =>
-{
-    opt.AddPolicy("CorsPolicy", policy =>
-    {
-        policy.AllowAnyMethod().AllowAnyHeader().WithOrigins("http://localhost:3000");
-    });
-});
-builder.Host.UseServiceProviderFactory(new AutofacServiceProviderFactory());
-builder.Host.ConfigureContainer<ContainerBuilder>(builder => builder.RegisterModule(new Dependencies()));
-builder.Services.AddAutoMapper(typeof(MappingProfiles).Assembly);
+builder.Services.AddApplicationServices(builder.Configuration, builder.Host);
 
 var app = builder.Build();
 
