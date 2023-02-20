@@ -19,6 +19,5 @@ namespace Domain.Interfaces
 
         Task<TEntity> Insert(TEntity entity);
         void Delete(TEntity entity);
-        void Update(TEntity entity);
     }
 }

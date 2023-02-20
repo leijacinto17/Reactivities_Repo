@@ -1,4 +1,5 @@
 using API.Dependency;
+using Application.Core;
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
 using Infrastructure;
@@ -25,6 +26,7 @@ builder.Services.AddCors(opt =>
 });
 builder.Host.UseServiceProviderFactory(new AutofacServiceProviderFactory());
 builder.Host.ConfigureContainer<ContainerBuilder>(builder => builder.RegisterModule(new Dependencies()));
+builder.Services.AddAutoMapper(typeof(MappingProfiles).Assembly);
 
 var app = builder.Build();
 

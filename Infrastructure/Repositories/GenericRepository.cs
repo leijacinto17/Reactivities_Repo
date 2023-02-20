@@ -52,12 +52,6 @@ namespace Infrastructure.Repositories
             _dbSet.Remove(entity);
         }
 
-        public virtual void Update(TEntity entity)
-        {
-            _dbSet.Attach(entity);
-            _context.Entry(entity).State = EntityState.Modified;
-        }
-
         public virtual void SetRowVersion<T>(T entity, byte[] rowVersion) where T : class
         {
             _context.Entry(entity).OriginalValues["RowVersion"] = rowVersion;
