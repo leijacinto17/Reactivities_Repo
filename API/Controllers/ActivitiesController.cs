@@ -39,7 +39,7 @@ namespace API.Controllers
         }
 
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteActivity(Guid id)
+        public async Task<IActionResult> c(Guid id)
         {
             return Ok(await _activitiesServices.DeleteActivityAsync(id));
         }
