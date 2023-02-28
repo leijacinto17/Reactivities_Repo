@@ -4,6 +4,9 @@ using Autofac.Extensions.DependencyInjection;
 using Autofac;
 using Infrastructure;
 using Microsoft.EntityFrameworkCore;
+using FluentValidation.AspNetCore;
+using FluentValidation;
+using Application.Services.Activities;
 
 namespace API.Extensions
 {
@@ -30,6 +33,8 @@ namespace API.Extensions
             hostBuilder.UseServiceProviderFactory(new AutofacServiceProviderFactory());
             hostBuilder.ConfigureContainer<ContainerBuilder>(builder => builder.RegisterModule(new Dependencies()));
             services.AddAutoMapper(typeof(MappingProfiles).Assembly);
+            services.AddFluentValidationAutoValidation();
+            services.AddValidatorsFromAssemblyContaining<ActivitiesServices>();
 
 
             return services;

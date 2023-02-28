@@ -1,7 +1,10 @@
-﻿using Application.Queries.Activities;
+﻿using Application.Core;
+using Application.Queries.Activities;
+using Application.Validators.Activities;
 using AutoMapper;
 using Domain.Interfaces;
 using Domain.Models;
+using FluentValidation;
 using Microsoft.EntityFrameworkCore;
 
 namespace Application.Services.Activities
@@ -20,42 +23,72 @@ namespace Application.Services.Activities
             _mapper = mapper;
         }
 
-        public async Task<IEnumerable<Activity>> GetActivitiesAsync() => await _activitiesQueryBuilder.GetActivities(_unitOfWork.Activities)
-                                                                                                      .ToListAsync();
-
-        public async Task<Activity> GetActivityDetailsAsync(Guid id) => await _activitiesQueryBuilder.GetActivities(_unitOfWork.Activities)
-                                                                                                .FirstOrDefaultAsync(a => a.Id == id);
-
-        public async Task<Activity> CreateActivityAsync(Activity activity)
+        public class CommandValidator : AbstractValidator<Activity>
         {
-            var newAcitivity = await _unitOfWork.Activities.Insert(activity);
-            await _unitOfWork.SaveChangesAsync();
-
-            return newAcitivity;
+            public CommandValidator()
+            {
+                RuleFor(x => x).SetValidator(new ActivityValidators());
+            }
         }
 
-        public async Task<Activity> EditActivityAsync(Activity message)
+        public async Task<Result<IEnumerable<Activity>>> GetActivitiesAsync()
+        {
+            var activities = await _activitiesQueryBuilder.GetActivities(_unitOfWork.Activities)
+                                                          .ToListAsync();
+
+            return Result<IEnumerable<Activity>>.Success(activities);
+        }
+
+        public async Task<Result<Activity>> GetActivityDetailsAsync(Guid id)
+        {
+            var activity = await _activitiesQueryBuilder.GetActivities(_unitOfWork.Activities)
+                                                        .FirstOrDefaultAsync(a => a.Id == id);
+            return Result<Activity>.Success(activity);
+        }
+
+        public async Task<Result<Activity>> CreateActivityAsync(Activity activity)
+        {
+            var newAcitivity = await _unitOfWork.Activities.Insert(activity);
+            var result = await _unitOfWork.SaveChangesAsync();
+
+            if (!result)
+                return Result<Activity>.Failure("Failed to create Activity");
+
+            return Result<Activity>.Success(activity);
+        }
+
+        public async Task<Result<Activity>> EditActivityAsync(Activity message)
         {
             var activity = await _activitiesQueryBuilder.GetActivities(_unitOfWork.Activities)
                                                         .FirstOrDefaultAsync(a => a.Id == message.Id);
 
+            if (activity == null) return null;
+
             _mapper.Map(message, activity);
 
-            await _unitOfWork.SaveChangesAsync();
+            var result = await _unitOfWork.SaveChangesAsync();
 
-            return activity;
+            if (!result) return Result<Activity>.Failure("Failed to update activity");
+
+            return Result<Activity>.Success(activity);
         }
 
-        public async Task<IEnumerable<Activity>> DeleteActivityAsync(Guid id)
+        public async Task<Result<IEnumerable<Activity>>> DeleteActivityAsync(Guid id)
         {
             var activity = await _activitiesQueryBuilder.GetActivities(_unitOfWork.Activities)
                                                         .FirstOrDefaultAsync(a => a.Id == id);
 
+            if (activity == null) return null;
+
             _unitOfWork.Activities.Delete(activity);
 
-            await _unitOfWork.SaveChangesAsync();
+            var result = await _unitOfWork.SaveChangesAsync();
 
-            return await GetActivitiesAsync();
+            if (!result) return Result<IEnumerable<Activity>>.Failure("Failed to delete activity");
+
+            var activities = await GetActivitiesAsync();
+
+            return activities;
         }
     }
 }
