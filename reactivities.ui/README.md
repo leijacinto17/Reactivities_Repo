@@ -44,3 +44,26 @@ You don’t have to ever use `eject`. The curated feature set is suitable for sm
 You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
 To learn React, check out the [React documentation](https://reactjs.org/).
+
+
+
+## yarn add semantic-ui-react semantic-ui-css
+## yarn add uuid (if using GUID)
+## npm i --save-dev @types/uuid (if using typescript)
+## npm i --save-dev @types/babel (if using typescript)
+## yarn add @types/node --dev (if using typescript)
+## yarn add @types/node --dev (if using typescript)
+## yarn add mobx mobx-react-lite (state organizer)
+## yarn add react-router-dom (to navigate diffferent page)
+## yarn add @types/react-calendar (if using typescript)
+## yarn add react-toastify (toast message)
+## yarn add formik (Forms)
+## yarn add yup (formik  validation )
+## yarn add @types/yup --save-dev (if using typescript)
+## yarn add axios (to connect in api)
+
+
+
+## After installing react-datepicker
+## install @types/react-datepicker
+## install date-fns (to format date)
