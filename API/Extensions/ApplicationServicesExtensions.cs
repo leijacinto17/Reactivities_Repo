@@ -21,7 +21,8 @@ namespace API.Extensions
             services.AddSwaggerGen();
             services.AddDbContext<DataContext>(opt =>
             {
-                opt.UseLazyLoadingProxies().UseSqlServer(config.GetConnectionString("DefaultConnection"));
+                opt.UseSqlServer(config.GetConnectionString("DefaultConnection"))
+                   .UseLazyLoadingProxies();
             });
             services.AddCors(opt =>
             {

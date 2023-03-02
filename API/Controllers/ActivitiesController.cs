@@ -1,8 +1,8 @@
 ﻿using API.Common;
 using Application.Services.Activities;
 using Domain.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using System.Net;
 
 namespace API.Controllers
 {

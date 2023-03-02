@@ -6,4 +6,17 @@
     <Nullable>disable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Compile Remove="Models\Role.cs" />
+    <Compile Remove="Models\RoleClaim.cs" />
+    <Compile Remove="Models\UserClaim.cs" />
+    <Compile Remove="Models\UserLogin.cs" />
+    <Compile Remove="Models\UserRole.cs" />
+    <Compile Remove="Models\UserToken.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="7.0.3" />
+  </ItemGroup>
+
 </Project>
