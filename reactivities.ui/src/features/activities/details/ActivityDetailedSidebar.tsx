@@ -1,60 +1,56 @@
-import { Segment, List, Label, Item, Image } from 'semantic-ui-react'
-import { Link } from 'react-router-dom'
-import { observer } from 'mobx-react-lite'
+import { Segment, List, Label, Item, Image } from "semantic-ui-react";
+import { Link } from "react-router-dom";
+import { observer } from "mobx-react-lite";
+import { Activity } from "../../../app/models/activity";
 
-export default observer(function ActivityDetailedSidebar () {
-    return (
-        <>
-            <Segment
-                textAlign='center'
-                style={{ border: 'none' }}
-                attached='top'
-                secondary
-                inverted
-                color='teal'
-            >
-                3 People Going
-            </Segment>
-            <Segment attached>
-                <List relaxed divided>
-                    <Item style={{ position: 'relative' }}>
-                        <Label
-                            style={{ position: 'absolute' }}
-                            color='orange'
-                            ribbon='right'
-                        >
-                            Host
-                        </Label>
-                        <Image size='tiny' src={'/assets/user.png'} />
-                        <Item.Content verticalAlign='middle'>
-                            <Item.Header as='h3'>
-                                <Link to={`#`}>Bob</Link>
-                            </Item.Header>
-                            <Item.Extra style={{ color: 'orange' }}>Following</Item.Extra>
-                        </Item.Content>
-                    </Item>
+interface Props {
+  activity: Activity;
+}
 
-                    <Item style={{ position: 'relative' }}>
-                        <Image size='tiny' src={'/assets/user.png'} />
-                        <Item.Content verticalAlign='middle'>
-                            <Item.Header as='h3'>
-                                <Link to={`#`}>Tom</Link>
-                            </Item.Header>
-                            <Item.Extra style={{ color: 'orange' }}>Following</Item.Extra>
-                        </Item.Content>
-                    </Item>
+export default observer(function ActivityDetailedSidebar({
+  activity: { profiles, host },
+}: Props) {
+  if (!profiles) return null;
 
-                    <Item style={{ position: 'relative' }}>
-                        <Image size='tiny' src={'/assets/user.png'} />
-                        <Item.Content verticalAlign='middle'>
-                            <Item.Header as='h3'>
-                                <Link to={`#`}>Sally</Link>
-                            </Item.Header>
-                        </Item.Content>
-                    </Item>
-                </List>
-            </Segment>
-        </>
+  return (
+    <>
+      <Segment
+        textAlign="center"
+        style={{ border: "none" }}
+        attached="top"
+        secondary
+        inverted
+        color="teal"
+      >
+        {profiles.length} {profiles.length === 1 ? "Person" : "People"}
+      </Segment>
+      <Segment attached>
+        <List relaxed divided>
+          {profiles.map((attendee) => (
+            <Item key={attendee.username} style={{ position: "relative" }}>
+              {attendee.username === host?.username && (
+                <Label
+                  style={{ position: "absolute" }}
+                  color="orange"
+                  ribbon="right"
+                >
+                  Host
+                </Label>
+              )}
 
-    )
-})
+              <Image size="tiny" src={attendee.image || "/assets/user.png"} />
+              <Item.Content verticalAlign="middle">
+                <Item.Header as="h3">
+                  <Link to={`/profile/${attendee.username}`}>
+                    {attendee.displayName}
+                  </Link>
+                </Item.Header>
+                <Item.Extra style={{ color: "orange" }}>Following</Item.Extra>
+              </Item.Content>
+            </Item>
+          ))}
+        </List>
+      </Segment>
+    </>
+  );
+});

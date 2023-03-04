@@ -11,7 +11,11 @@ import ActivityDetailedSidebar from "./ActivityDetailedSidebar";
 
 export default observer(function ActivityDetails() {
   const { activityStore } = useStore();
-  const { selectedActivity: activity, loadActivity, loadingInitial } = activityStore;
+  const {
+    selectedActivity: activity,
+    loadActivity,
+    loadingInitial,
+  } = activityStore;
   const { id } = useParams();
 
   useEffect(() => {
@@ -28,7 +32,7 @@ export default observer(function ActivityDetails() {
         <ActivityDetailedChat />
       </Grid.Column>
       <Grid.Column width={6}>
-        <ActivityDetailedSidebar />
+        <ActivityDetailedSidebar activity={activity} />
       </Grid.Column>
     </Grid>
   );
