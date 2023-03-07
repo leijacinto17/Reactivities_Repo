@@ -4,6 +4,9 @@ using Application.Services.Activities;
 using Autofac;
 using Domain.Interfaces;
 using Infrastructure;
+using Reactivities.Application.Queries.Photos;
+using Reactivities.Application.Services.Photos;
+using Reactivities.Application.Services.Profiles;
 
 namespace API.Dependency
 {
@@ -20,6 +23,15 @@ namespace API.Dependency
 
             #region User
             builder.RegisterType<UserQueryBuilder>().As<IUserQueryBuilder>();
+            #endregion
+
+            #region Photo
+            builder.RegisterType<PhotosServices>().As<IPhotosServices>();
+            builder.RegisterType<PhotosQueryBuilder>().As<IPhotosQueryBuilder>();
+            #endregion
+
+            #region Profile
+            builder.RegisterType<ProfilesServices>().As<IProfilesServices>();
             #endregion
         }
     }

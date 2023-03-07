@@ -1,4 +1,5 @@
 ﻿using Application.DTOs.Accounts;
+using Reactivities.Application.DTOs.Activities;
 
 namespace Application.DTOs.Activities
 {
@@ -13,6 +14,6 @@ namespace Application.DTOs.Activities
         public string Venue { get; set; }
         public string HostUsername { get; set; }
         public bool IsCancelled { get; set; }
-        public ICollection<ProfileDto> Profiles { get; set; }
+        public ICollection<AttendeesDto> Attendees { get; set; }
     }
 }

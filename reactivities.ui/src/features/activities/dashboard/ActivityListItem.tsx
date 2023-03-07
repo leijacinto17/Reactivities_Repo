@@ -60,7 +60,7 @@ export default function ActivityListItem({ activity }: Props) {
         </span>
       </Segment>
       <Segment secondary>
-        <ActivityListItemAttendee attendees={activity.profiles!} />
+        <ActivityListItemAttendee attendees={activity.attendees!} />
       </Segment>
       <Segment clearing>
         <span>{activity.description}</span>

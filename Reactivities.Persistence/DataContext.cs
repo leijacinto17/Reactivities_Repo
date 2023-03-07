@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using Reactivities.Domain.Models;
 
 namespace Infrastructure
 {
@@ -13,6 +14,7 @@ namespace Infrastructure
 
         public virtual DbSet<Activity> Activities { get; set; }
         public virtual DbSet<ActivityAttendee> ActivityAttendees { get; set; }
+        public virtual DbSet<Photo> Photos { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {

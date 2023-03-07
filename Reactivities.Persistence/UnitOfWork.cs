@@ -1,5 +1,7 @@
 ﻿using Domain.Interfaces;
 using Infrastructure.Repositories;
+using Reactivities.Domain.Interfaces;
+using Reactivities.Persistence.Repositories;
 
 namespace Infrastructure
 {
@@ -9,6 +11,7 @@ namespace Infrastructure
         private readonly DataContext _context;
         private readonly IActivitiesRepository _activitiesRepository;
         private readonly IUserRepository _userRepository;
+        private readonly IPhotoRepository _photoRepository;
 
         public UnitOfWork(DataContext context)
         {
@@ -21,6 +24,9 @@ namespace Infrastructure
 
         public IUserRepository Users => _userRepository
                                        ?? new UserRepository(_context);
+
+        public IPhotoRepository Photos => _photoRepository
+                                          ?? new PhotoRepository(_context);
 
         public async Task<bool> SaveChangesAsync()
         {

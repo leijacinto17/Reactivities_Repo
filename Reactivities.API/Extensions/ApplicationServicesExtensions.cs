@@ -9,6 +9,8 @@ using FluentValidation;
 using FluentValidation.AspNetCore;
 using Infrastructure;
 using Microsoft.EntityFrameworkCore;
+using Reactivities.Application.Interfaces;
+using Reactivities.Infrastructure.Photos;
 
 namespace API.Extensions
 {
@@ -41,6 +43,9 @@ namespace API.Extensions
 
             services.AddHttpContextAccessor();
             services.AddScoped<IUserAccessor, UserAccessor>();
+
+            services.Configure<CloudinarySettings>(config.GetSection("Cloudinary"));
+            services.AddScoped<IPhotoAccessor, PhotoAccessor>();
 
             return services;
         }

@@ -8,9 +8,9 @@ interface Props {
 }
 
 export default observer(function ActivityDetailedSidebar({
-  activity: { profiles, host },
+  activity: { attendees, host },
 }: Props) {
-  if (!profiles) return null;
+  if (!attendees) return null;
 
   return (
     <>
@@ -22,11 +22,11 @@ export default observer(function ActivityDetailedSidebar({
         inverted
         color="teal"
       >
-        {profiles.length} {profiles.length === 1 ? "Person" : "People"}
+        {attendees.length} {attendees.length === 1 ? "Person" : "People"}
       </Segment>
       <Segment attached>
         <List relaxed divided>
-          {profiles.map((attendee) => (
+          {attendees.map((attendee) => (
             <Item key={attendee.username} style={{ position: "relative" }}>
               {attendee.username === host?.username && (
                 <Label

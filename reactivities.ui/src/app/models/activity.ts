@@ -13,7 +13,7 @@ export interface Activity {
   isGoing: boolean;
   isHost: boolean;
   host?: Profiles;
-  profiles: Profiles[];
+  attendees: Profiles[];
 }
 
 export class Activity implements Activity {

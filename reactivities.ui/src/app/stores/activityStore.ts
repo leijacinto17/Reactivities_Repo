@@ -52,7 +52,7 @@ export default class ActivityStore {
     let activity = this.getActivity(id);
     if (activity) {
       this.selectedActivity = activity;
-      this.selectedActivity.profiles?.sort((value) =>
+      this.selectedActivity.attendees?.sort((value) =>
         value.username === activity?.hostUsername ? -1 : 1
       );
       return activity;
@@ -76,10 +76,10 @@ export default class ActivityStore {
   private setActivity = (activity: Activity) => {
     const user = store.userStore.user;
     if (user) {
-      activity.isGoing = activity.profiles?.some(
+      activity.isGoing = activity.attendees?.some(
         (a) => a.username === user.username
       );
-      activity.host = activity.profiles?.find(
+      activity.host = activity.attendees?.find(
         (x) => x.username === activity.hostUsername
       );
       activity.isHost = activity.host?.username === user.username;
@@ -103,7 +103,7 @@ export default class ActivityStore {
       await agent.Activities.create(activity);
       const newActivity = new Activity(activity);
       newActivity.hostUsername = user!.username;
-      newActivity.profiles = [attendee];
+      newActivity.attendees = [attendee];
       this.setActivity(newActivity);
       runInAction(() => {
         this.selectedActivity = newActivity;
@@ -155,15 +155,15 @@ export default class ActivityStore {
       await agent.Activities.attend(this.selectedActivity!.id);
       runInAction(() => {
         if (this.selectedActivity?.isGoing) {
-          this.selectedActivity.profiles =
-            this.selectedActivity.profiles?.filter(
+          this.selectedActivity.attendees =
+            this.selectedActivity.attendees?.filter(
               (a) => a.username !== user?.username
             );
 
           this.selectedActivity.isGoing = false;
         } else {
           const attendee = new Profiles(user!);
-          this.selectedActivity?.profiles?.push(attendee);
+          this.selectedActivity?.attendees?.push(attendee);
           this.selectedActivity!.isGoing = true;
         }
         this.activityRegistry.set(

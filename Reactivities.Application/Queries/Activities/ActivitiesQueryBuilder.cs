@@ -1,7 +1,7 @@
-﻿using Application.DTOs.Accounts;
-using Application.DTOs.Activities;
+﻿using Application.DTOs.Activities;
 using Domain.Interfaces;
 using Domain.Models;
+using Reactivities.Application.DTOs.Activities;
 
 namespace Application.Queries.Activities
 {
@@ -26,12 +26,12 @@ namespace Application.Queries.Activities
                 Venue = s.Venue,
                 HostUsername = s.Attendees.FirstOrDefault(a => a.IsHost).User.UserName,
                 IsCancelled = s.IsCancelled,
-                Profiles = s.Attendees.Select(a => new ProfileDto
+                Attendees = s.Attendees.Select(a => new AttendeesDto
                 {
                     Username = a.User.UserName,
                     DisplayName = a.User.DisplayName,
                     Bio = a.User.Bio,
-                    Image = ""
+                    Image = a.User.Photos.FirstOrDefault(x => x.IsMain).Url
                 }).ToHashSet(),
             });
         }

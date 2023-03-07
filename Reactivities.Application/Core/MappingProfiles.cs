@@ -5,6 +5,7 @@ using Domain.Models;
 
 namespace Application.Core
 {
+    //TODO: Delete if not use anymore
     public class MappingProfiles : Profile
     {
         public MappingProfiles()
