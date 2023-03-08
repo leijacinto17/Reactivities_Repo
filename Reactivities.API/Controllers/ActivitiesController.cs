@@ -49,7 +49,7 @@ namespace API.Controllers
             return HandleResult(await _activitiesServices.DeleteActivityAsync(id));
         }
 
-        [HttpPost("{id}/attend")]
+        [HttpPost("{id}/Attend")]
         public async Task<IActionResult> Attend(Guid id)
         {
             return HandleResult(await _activitiesServices.UpdateAttendance(id));

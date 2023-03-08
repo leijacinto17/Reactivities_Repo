@@ -61,8 +61,8 @@ To learn React, check out the [React documentation](https://reactjs.org/).
 ## yarn add yup (formik  validation )
 ## yarn add @types/yup --save-dev (if using typescript)
 ## yarn add axios (to connect in api)
-
-
+## yarn add react-dropzone (for handling upload image or files)
+## npm install react-cropper (for crop image after drag)
 
 ## After installing react-datepicker
 ## install @types/react-datepicker
