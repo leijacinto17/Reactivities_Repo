@@ -3,7 +3,6 @@ using Application.Services.Activities;
 using Domain.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Reactivities.Application.Models.Activities;
 
 namespace API.Controllers
 {

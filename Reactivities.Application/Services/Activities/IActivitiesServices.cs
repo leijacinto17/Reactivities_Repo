@@ -1,7 +1,6 @@
 ﻿using Application.Core;
 using Application.DTOs.Activities;
 using Domain.Models;
-using Reactivities.Application.Models.Activities;
 
 namespace Application.Services.Activities
 {

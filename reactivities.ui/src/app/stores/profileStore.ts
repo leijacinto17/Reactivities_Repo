@@ -1,6 +1,7 @@
 import { makeAutoObservable, runInAction } from "mobx";
 import agent from "../api/agent";
 import { Photo, Profiles } from "../models/profiles";
+import { UserAboutValues } from "../models/user";
 import { store } from "./store";
 
 export default class ProfileStore {
@@ -8,6 +9,7 @@ export default class ProfileStore {
   loadingProfile = false;
   uploading = false;
   loadingSetMainPhoto = false;
+  isSubmittingAbout = false;
 
   constructor() {
     makeAutoObservable(this);
@@ -93,6 +95,24 @@ export default class ProfileStore {
     } catch (error) {
       console.log(error);
       runInAction(() => (this.loadingSetMainPhoto = false));
+    }
+  };
+
+  editAbout = async (username: string, profile: UserAboutValues) => {
+    this.isSubmittingAbout = true;
+    try {
+      await agent.Profile.updateAbout(username, profile);
+      runInAction(() => {
+        this.profile!.displayName = profile.displayName!;
+        store.userStore.setDisplayName(profile.displayName!);
+        this.profile!.bio = profile.bio!;
+        this.profile = { ...this.profile, ...(profile as Profiles) };
+        store.activityStore.setLoadingInitial(true);
+        this.isSubmittingAbout = false;
+      });
+    } catch (error) {
+      console.log(error);
+      runInAction(() => (this.isSubmittingAbout = false));
     }
   };
 }
