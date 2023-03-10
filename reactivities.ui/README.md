@@ -64,6 +64,8 @@ To learn React, check out the [React documentation](https://reactjs.org/).
 ## yarn add react-dropzone (for handling upload image or files)
 ## npm install react-cropper (for crop image after drag)
 
+## npm install @microsoft/signalr (add signalr)
+
 ## After installing react-datepicker
 ## install @types/react-datepicker
 ## install date-fns (to format date)

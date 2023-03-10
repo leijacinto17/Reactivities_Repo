@@ -7,6 +7,7 @@ namespace Domain.Interfaces
         IActivitiesRepository Activities { get; }
         IUserRepository Users { get; }
         IPhotoRepository Photos { get; }
+        ICommentRepository Comments { get; }
         Task<bool> SaveChangesAsync();
     }
 }

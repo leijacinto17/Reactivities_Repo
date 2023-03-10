@@ -15,6 +15,7 @@ namespace Infrastructure
         public virtual DbSet<Activity> Activities { get; set; }
         public virtual DbSet<ActivityAttendee> ActivityAttendees { get; set; }
         public virtual DbSet<Photo> Photos { get; set; }
+        public virtual DbSet<Comment> Comments { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
@@ -64,6 +65,11 @@ namespace Infrastructure
                   .HasOne(a => a.Activity)
                   .WithMany(a => a.Attendees)
                   .HasForeignKey(a => a.ActivityId);
+
+            builder.Entity<Comment>()
+                   .HasOne(a => a.Activity)
+                   .WithMany(a => a.Comments)
+                   .OnDelete(DeleteBehavior.Cascade);
         }
     }
 }

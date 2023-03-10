@@ -11,7 +11,6 @@ export default observer(function ActivityDashboard() {
   const { loadActivities, activityRegistry } = activityStore;
 
   useEffect(() => {
-    console.log(activityStore.loadingInitial)
     if (activityRegistry.size <= 1 || activityStore.loadingInitial ) loadActivities();
   }, [activityRegistry.size, loadActivities, activityStore.loadingInitial]);
 

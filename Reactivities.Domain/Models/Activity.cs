@@ -1,4 +1,6 @@
-﻿namespace Domain.Models
+﻿using Reactivities.Domain.Models;
+
+namespace Domain.Models
 {
     public class Activity
     {
@@ -11,5 +13,6 @@
         public string Venue { get; set; }
         public bool IsCancelled { get; set; }
         public virtual ICollection<ActivityAttendee> Attendees { get; set; } = new HashSet<ActivityAttendee>();
+        public virtual ICollection<Comment> Comments { get; set; } = new HashSet<Comment>();
     }
 }

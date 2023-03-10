@@ -12,6 +12,7 @@ namespace Infrastructure
         private readonly IActivitiesRepository _activitiesRepository;
         private readonly IUserRepository _userRepository;
         private readonly IPhotoRepository _photoRepository;
+        private readonly ICommentRepository _commentRepository;
 
         public UnitOfWork(DataContext context)
         {
@@ -27,6 +28,9 @@ namespace Infrastructure
 
         public IPhotoRepository Photos => _photoRepository
                                           ?? new PhotoRepository(_context);
+
+        public ICommentRepository Comments => _commentRepository
+                                         ?? new CommentRepository(_context);
 
         public async Task<bool> SaveChangesAsync()
         {
