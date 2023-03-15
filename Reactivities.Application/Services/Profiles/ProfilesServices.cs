@@ -26,7 +26,7 @@ namespace Reactivities.Application.Services.Profiles
 
         public async Task<Result<ProfileDto>> GetProfileDetails(string username)
         {
-            var user = await _userQueryBuilder.GetProfileDetails(_unitOfWork.Users)
+            var user = await _userQueryBuilder.GetProfileDetails(_unitOfWork.Users, _userAccessor.GetUername())
                                               .FirstOrDefaultAsync(a => a.Username == username);
 
             if (user == null) return null;

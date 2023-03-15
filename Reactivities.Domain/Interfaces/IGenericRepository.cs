@@ -17,7 +17,7 @@ namespace Domain.Interfaces
               includeProperties = null,
           bool tracking = true);
 
-        Task<TEntity> Insert(TEntity entity);
+        Task<TEntity> InsertAsync(TEntity entity);
         void Delete(TEntity entity);
     }
 }

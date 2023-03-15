@@ -37,7 +37,7 @@ namespace Infrastructure.Repositories
             return query;
         }
 
-        public virtual async Task<TEntity> Insert(TEntity entity)
+        public virtual async Task<TEntity> InsertAsync(TEntity entity)
         {
             var insert = await _dbSet.AddAsync(entity);
             return insert.Entity;

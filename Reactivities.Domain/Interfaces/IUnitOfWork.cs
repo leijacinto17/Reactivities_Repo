@@ -8,6 +8,7 @@ namespace Domain.Interfaces
         IUserRepository Users { get; }
         IPhotoRepository Photos { get; }
         ICommentRepository Comments { get; }
+        IUserFollowingsRepository UserFollowings { get; }
         Task<bool> SaveChangesAsync();
     }
 }

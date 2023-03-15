@@ -10,10 +10,10 @@ namespace Application.Queries.Activities
         public IQueryable<Activity> GetActivityEntity(IActivitiesRepository activitiesRepository) =>
             activitiesRepository.GetQueryable();
 
-        public IQueryable<ActivityDto> GetActivities(IActivitiesRepository activitiesRepository) =>
-            SelectActivities(activitiesRepository.GetQueryable());
+        public IQueryable<ActivityDto> GetActivities(IActivitiesRepository activitiesRepository, string username) =>
+            SelectActivities(activitiesRepository.GetQueryable(), username);
 
-        private IQueryable<ActivityDto> SelectActivities(IQueryable<Activity> query)
+        private static IQueryable<ActivityDto> SelectActivities(IQueryable<Activity> query, string username)
         {
             return query.Select(s => new ActivityDto
             {
@@ -31,7 +31,10 @@ namespace Application.Queries.Activities
                     Username = a.User.UserName,
                     DisplayName = a.User.DisplayName,
                     Bio = a.User.Bio,
-                    Image = a.User.Photos.FirstOrDefault(x => x.IsMain).Url
+                    Image = a.User.Photos.FirstOrDefault(x => x.IsMain).Url,
+                    FollowersCount = a.User.Followers.Count,
+                    FollowingCount = a.User.Followings.Count,
+                    Following = a.User.Followers.Any(x => x.Observer.UserName == username)
                 }).ToHashSet(),
             });
         }

@@ -15,7 +15,7 @@ namespace Reactivities.Application.Queries.Comments
         public IQueryable<CommentDto> GetComments(ICommentRepository commentRepository) =>
             SelectComments(commentRepository.GetQueryable());
 
-        public IQueryable<CommentDto> SelectComments(IQueryable<Comment> query)
+        private static IQueryable<CommentDto> SelectComments(IQueryable<Comment> query)
         {
             return query.Select(s => new CommentDto
             {

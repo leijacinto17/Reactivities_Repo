@@ -40,7 +40,7 @@ namespace Application.Services.Activities
         #region Activities Methods
         public async Task<Result<IEnumerable<ActivityDto>>> GetActivitiesAsync()
         {
-            var activities = await _activitiesQueryBuilder.GetActivities(_unitOfWork.Activities)
+            var activities = await _activitiesQueryBuilder.GetActivities(_unitOfWork.Activities, _userAccessor.GetUername())
                                                           .ToListAsync();
 
             return Result<IEnumerable<ActivityDto>>.Success(activities);
@@ -48,7 +48,7 @@ namespace Application.Services.Activities
 
         public async Task<Result<ActivityDto>> GetActivityDetailsAsync(Guid id)
         {
-            var activity = await _activitiesQueryBuilder.GetActivities(_unitOfWork.Activities)
+            var activity = await _activitiesQueryBuilder.GetActivities(_unitOfWork.Activities, _userAccessor.GetUername())
                                                         .FirstOrDefaultAsync(a => a.Id == id);
             return Result<ActivityDto>.Success(activity);
         }
@@ -67,7 +67,7 @@ namespace Application.Services.Activities
 
             activity.Attendees.Add(attendee);
 
-            await _unitOfWork.Activities.Insert(activity);
+            await _unitOfWork.Activities.InsertAsync(activity);
             var result = await _unitOfWork.SaveChangesAsync();
 
             if (!result)

@@ -103,6 +103,12 @@ const Profile = {
   deletePhoto: (id: string) => requests.del(`/Photo/${id}`),
   updateAbout: (username: string, profile: UserAboutValues) =>
     requests.put<Profiles>(`/Profiles/${username}/EditAbout`, profile),
+  updateFollowing: (username: string) =>
+    requests.post(`/Follow/${username}/Follow`, {}),
+  listFollowings: (username: string, predicate: string) =>
+    requests.get<Profiles[]>(
+      `Follow/${username}/GetFollowing?predicate=${predicate}`
+    ),
 };
 
 const agent = {
