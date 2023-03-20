@@ -56,7 +56,6 @@ export default class ActivityStore {
         this.setActivity(activity);
       });
       this.setPagination(result.pagination);
-      this.pagination = result.pagination
       this.setLoadingInitial(false);
     } catch (error) {
       console.log(error);
