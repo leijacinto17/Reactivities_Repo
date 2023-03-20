@@ -66,6 +66,9 @@ To learn React, check out the [React documentation](https://reactjs.org/).
 
 ## npm install @microsoft/signalr (add signalr)
 
+## yarn add react-infinite-scroller (add infinite scroll)
+## yarn add @types/react-infinite-scroller (add infinite scroll)
+
 ## After installing react-datepicker
 ## install @types/react-datepicker
 ## install date-fns (to format date)

@@ -8,7 +8,7 @@ using Domain.Interfaces;
 using Domain.Models;
 using FluentValidation;
 using Microsoft.EntityFrameworkCore;
-using System.Reflection;
+using Reactivities.Application.Core;
 
 namespace Application.Services.Activities
 {
@@ -38,12 +38,17 @@ namespace Application.Services.Activities
         }
 
         #region Activities Methods
-        public async Task<Result<IEnumerable<ActivityDto>>> GetActivitiesAsync()
+        public async Task<Result<PageList<ActivityDto>>> GetActivitiesAsync(PagingParams pagingParams)
         {
-            var activities = await _activitiesQueryBuilder.GetActivities(_unitOfWork.Activities, _userAccessor.GetUername())
-                                                          .ToListAsync();
+            var activities = _activitiesQueryBuilder.GetActivities(_unitOfWork.Activities,
+                                                                   _userAccessor.GetUername())
+                                                    .OrderBy(a => a.Date);
 
-            return Result<IEnumerable<ActivityDto>>.Success(activities);
+            var result = await PageList<ActivityDto>.CreateAsync(activities,
+                                                                 pagingParams.PageNumber,
+                                                                 pagingParams.PageSize);
+
+            return Result<PageList<ActivityDto>>.Success(result);
         }
 
         public async Task<Result<ActivityDto>> GetActivityDetailsAsync(Guid id)
@@ -97,7 +102,7 @@ namespace Application.Services.Activities
             return await GetActivityDetailsAsync(activity.Id);
         }
 
-        public async Task<Result<IEnumerable<ActivityDto>>> DeleteActivityAsync(Guid id)
+        public async Task<Result<bool>> DeleteActivityAsync(Guid id)
         {
             var activity = await _activitiesQueryBuilder.GetActivityEntity(_unitOfWork.Activities)
                                                         .FirstOrDefaultAsync(a => a.Id == id);
@@ -108,11 +113,9 @@ namespace Application.Services.Activities
 
             var result = await _unitOfWork.SaveChangesAsync();
 
-            if (!result) return Result<IEnumerable<ActivityDto>>.Failure("Failed to delete activity");
+            if (!result) return Result<bool>.Failure("Failed to delete activity");
 
-            var activities = await GetActivitiesAsync();
-
-            return activities;
+            return Result<bool>.Success(true);
         }
         #endregion
 
