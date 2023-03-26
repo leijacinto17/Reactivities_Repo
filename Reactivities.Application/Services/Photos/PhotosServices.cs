@@ -7,8 +7,6 @@ using Microsoft.EntityFrameworkCore;
 using Reactivities.Application.Interfaces;
 using Reactivities.Application.Queries.Photos;
 using Reactivities.Domain.Models;
-using System.Collections.Generic;
-using System.Reflection.Metadata.Ecma335;
 
 namespace Reactivities.Application.Services.Photos
 {

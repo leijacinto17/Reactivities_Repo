@@ -28,14 +28,16 @@ namespace Application.Queries.Activities
                                             string username,
                                             ActivityParams param)
         {
-            query = query.Where(s => s.Date >= param.StartDate);
+            if (param != null)
+            {
+                query = query.Where(s => s.Date >= param.StartDate);
 
-            if (param.IsGoing && !param.IsHost)
-                query = query.Where(s => s.Attendees.Any(a => a.User.UserName == username));
+                if (param.IsGoing && !param.IsHost)
+                    query = query.Where(s => s.Attendees.Any(a => a.User.UserName == username));
 
-            if (param.IsHost && !param.IsGoing)
-                query = query.Where(s => s.Attendees.FirstOrDefault(w => w.IsHost).User.UserName == username);
-
+                if (param.IsHost && !param.IsGoing)
+                    query = query.Where(s => s.Attendees.FirstOrDefault(w => w.IsHost).User.UserName == username);
+            }
             return query;
         }
 

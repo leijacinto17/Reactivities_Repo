@@ -3,7 +3,6 @@ using Application.DTOs.Accounts;
 using Application.Interfaces;
 using Application.Queries.Users;
 using Domain.Interfaces;
-using Microsoft.AspNetCore.Localization;
 using Microsoft.EntityFrameworkCore;
 using Reactivities.Application.Models.Profiles;
 

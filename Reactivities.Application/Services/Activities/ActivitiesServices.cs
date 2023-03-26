@@ -129,9 +129,9 @@ namespace Application.Services.Activities
 
             query = predicate switch
             {
-                "past" => query.Where(s => s.Date <= DateTime.Now),
+                "past" => query.Where(s => s.Date <= DateTime.UtcNow),
                 "hosting" => query.Where(s => s.HostUsername == username),
-                _ => query.Where(s => s.Date >= DateTime.Now)
+                _ => query.Where(s => s.Date >= DateTime.UtcNow)
             };
 
             var userActivities = await query.ToListAsync();

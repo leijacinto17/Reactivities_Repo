@@ -71,18 +71,18 @@ namespace API.Extensions
                 options.UseNpgsql(connStr).UseLazyLoadingProxies();
             });
 
-#endregion
+            #endregion
 
-services.AddCors(opt =>
-            {
-                opt.AddPolicy("CorsPolicy", policy =>
-                {
-                    policy.AllowAnyMethod()
-                          .AllowAnyHeader()
-                          .AllowCredentials()
-                          .WithOrigins("http://localhost:3000");
-                });
-            });
+            services.AddCors(opt =>
+                        {
+                            opt.AddPolicy("CorsPolicy", policy =>
+                            {
+                                policy.AllowAnyMethod()
+                                      .AllowAnyHeader()
+                                      .AllowCredentials()
+                                      .WithOrigins("http://localhost:3000");
+                            });
+                        });
             hostBuilder.UseServiceProviderFactory(new AutofacServiceProviderFactory());
             hostBuilder.ConfigureContainer<ContainerBuilder>(builder => builder.RegisterModule(new Dependencies()));
             services.AddAutoMapper(typeof(MappingProfiles).Assembly);
