@@ -109,3 +109,5 @@ To learn React, check out the [React documentation](https://reactjs.org/).
 
 ## go to fly.toml modify some config there specially the environment variables
 
+## flyctl auth token (to get the fly api token)
+

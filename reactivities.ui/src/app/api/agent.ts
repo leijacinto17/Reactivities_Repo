@@ -85,47 +85,47 @@ const requests = {
 const Activities = {
   list: (params: URLSearchParams) =>
     axios
-      .get<PaginatedResult<Activity[]>>(`/Activities`, { params })
+      .get<PaginatedResult<Activity[]>>(`/activities`, { params })
       .then(responseBody),
-  details: (id: string) => requests.get<Activity>(`/Activities/${id}`),
+  details: (id: string) => requests.get<Activity>(`/activities/${id}`),
   create: (activity: ActivityFormValues) =>
-    requests.post<void>(`/Activities`, activity),
+    requests.post<void>(`/activities`, activity),
   update: (activity: ActivityFormValues) =>
-    requests.put<void>(`/Activities/${activity.id}`, activity),
-  delete: (id: string) => requests.del<void>(`/Activities/${id}`),
+    requests.put<void>(`/activities/${activity.id}`, activity),
+  delete: (id: string) => requests.del<void>(`/activities/${id}`),
 
-  attend: (id: string) => requests.post<void>(`/Activities/${id}/Attend`, {}),
+  attend: (id: string) => requests.post<void>(`/activities/${id}/attend`, {}),
 };
 
 const Account = {
-  current: () => requests.get<User>("/Account"),
-  login: (user: UserFormValues) => requests.post<User>("/Account/Login", user),
+  current: () => requests.get<User>("/account"),
+  login: (user: UserFormValues) => requests.post<User>("/account/login", user),
   register: (user: UserFormValues) =>
     requests.post<User>("/Account/Register", user),
 };
 
 const Profile = {
-  get: (username: string) => requests.get<Profiles>(`/Profiles/${username}`),
+  get: (username: string) => requests.get<Profiles>(`/profiles/${username}`),
   uploadPhoto: (file: Blob) => {
     let formData = new FormData();
     formData.append("File", file);
-    return axios.post<Photo>("Photo", formData, {
+    return axios.post<Photo>("photo", formData, {
       headers: { "Content-Type": "multipart/form-data" },
     });
   },
-  setMainPhoto: (id: string) => requests.post(`/Photo/${id}/SetMainPhoto`, {}),
-  deletePhoto: (id: string) => requests.del(`/Photo/${id}`),
+  setMainPhoto: (id: string) => requests.post(`/photo/${id}/setmainphoto`, {}),
+  deletePhoto: (id: string) => requests.del(`/photo/${id}`),
   updateAbout: (username: string, profile: UserAboutValues) =>
-    requests.put<Profiles>(`/Profiles/${username}/EditAbout`, profile),
+    requests.put<Profiles>(`/profiles/${username}/editabout`, profile),
   updateFollowing: (username: string) =>
-    requests.post(`/Follow/${username}/Follow`, {}),
+    requests.post(`/follow/${username}/follow`, {}),
   listFollowings: (username: string, predicate: string) =>
     requests.get<Profiles[]>(
-      `Follow/${username}/GetFollowing?predicate=${predicate}`
+      `follow/${username}/getFollowing?predicate=${predicate}`
     ),
   listOfUseActivities: (username: string, predicate: string) =>
     requests.get<UserActivity[]>(
-      `Profiles/${username}/Activities?predicate=${predicate}`
+      `Profiles/${username}/activities?predicate=${predicate}`
     ),
 };
 
