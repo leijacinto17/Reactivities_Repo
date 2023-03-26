@@ -5,9 +5,9 @@ export interface Profiles {
   displayName: string;
   image?: string;
   bio?: string;
-  followersCount: number,
-  followingCount: number,
-  following: boolean,
+  followersCount: number;
+  followingCount: number;
+  following: boolean;
   photos: Photo[] | null;
 }
 
@@ -24,4 +24,11 @@ export interface Photo {
   publicId: string;
   url: string;
   isMain: boolean;
+}
+
+export interface UserActivity {
+  id: string;
+  title: string;
+  category: string;
+  date: Date;
 }

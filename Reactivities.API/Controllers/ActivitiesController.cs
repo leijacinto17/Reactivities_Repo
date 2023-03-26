@@ -4,6 +4,7 @@ using Domain.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Reactivities.Application.Core;
+using Reactivities.Application.Models.Activities;
 
 namespace API.Controllers
 {
@@ -17,7 +18,7 @@ namespace API.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetActivities([FromQuery] PagingParams param)
+        public async Task<IActionResult> GetActivities([FromQuery] ActivityParams param)
         {
             return HandlePagedResult(await _activitiesServices.GetActivitiesAsync(param));
         }

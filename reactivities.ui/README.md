@@ -72,3 +72,6 @@ To learn React, check out the [React documentation](https://reactjs.org/).
 ## After installing react-datepicker
 ## install @types/react-datepicker
 ## install date-fns (to format date)
+
+
+## Need to polish (automatic changing of profile in Activities, infinite loop when theres no activities)

@@ -2,7 +2,7 @@ import axios, { AxiosError, AxiosResponse } from "axios";
 import { toast } from "react-toastify";
 import { Activity, ActivityFormValues } from "../models/activity";
 import { PaginatedResult } from "../models/pagination";
-import { Photo, Profiles } from "../models/profiles";
+import { Photo, Profiles, UserActivity } from "../models/profiles";
 import { User, UserAboutValues, UserFormValues } from "../models/user";
 import { router } from "../router/Routes";
 import { store } from "../stores/store";
@@ -121,6 +121,10 @@ const Profile = {
   listFollowings: (username: string, predicate: string) =>
     requests.get<Profiles[]>(
       `Follow/${username}/GetFollowing?predicate=${predicate}`
+    ),
+  listOfUseActivities: (username: string, predicate: string) =>
+    requests.get<UserActivity[]>(
+      `Profiles/${username}/Activities?predicate=${predicate}`
     ),
 };
 

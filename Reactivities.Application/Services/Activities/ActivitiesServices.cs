@@ -9,6 +9,8 @@ using Domain.Models;
 using FluentValidation;
 using Microsoft.EntityFrameworkCore;
 using Reactivities.Application.Core;
+using Reactivities.Application.DTOs.Accounts;
+using Reactivities.Application.Models.Activities;
 
 namespace Application.Services.Activities
 {
@@ -21,7 +23,7 @@ namespace Application.Services.Activities
         public ActivitiesServices(IUnitOfWork unitOfWork,
                                   IActivitiesQueryBuilder activitiesQueryBuilder,
                                   IUserAccessor userAccessor,
-                                  IUserQueryBuilder userQueryBuilder)
+                                  IUserQueryBuilder userQueryBuilder)   
         {
             _unitOfWork = unitOfWork;
             _activitiesQueryBuilder = activitiesQueryBuilder;
@@ -38,10 +40,11 @@ namespace Application.Services.Activities
         }
 
         #region Activities Methods
-        public async Task<Result<PageList<ActivityDto>>> GetActivitiesAsync(PagingParams pagingParams)
+        public async Task<Result<PageList<ActivityDto>>> GetActivitiesAsync(ActivityParams pagingParams)
         {
             var activities = _activitiesQueryBuilder.GetActivities(_unitOfWork.Activities,
-                                                                   _userAccessor.GetUername())
+                                                                   _userAccessor.GetUername(),
+                                                                   pagingParams)
                                                     .OrderBy(a => a.Date);
 
             var result = await PageList<ActivityDto>.CreateAsync(activities,
@@ -53,7 +56,7 @@ namespace Application.Services.Activities
 
         public async Task<Result<ActivityDto>> GetActivityDetailsAsync(Guid id)
         {
-            var activity = await _activitiesQueryBuilder.GetActivities(_unitOfWork.Activities, _userAccessor.GetUername())
+            var activity = await _activitiesQueryBuilder.GetActivities(_unitOfWork.Activities, _userAccessor.GetUername(), null)
                                                         .FirstOrDefaultAsync(a => a.Id == id);
             return Result<ActivityDto>.Success(activity);
         }
@@ -116,6 +119,24 @@ namespace Application.Services.Activities
             if (!result) return Result<bool>.Failure("Failed to delete activity");
 
             return Result<bool>.Success(true);
+        }
+
+        public async Task<Result<IEnumerable<UserActivityDto>>> GetUserActivityAsync(string username,
+                                                                                     string predicate)
+        {
+            var query = _activitiesQueryBuilder.GetUserActivity(_unitOfWork.ActivityAttendee,
+                                                                username);
+
+            query = predicate switch
+            {
+                "past" => query.Where(s => s.Date <= DateTime.Now),
+                "hosting" => query.Where(s => s.HostUsername == username),
+                _ => query.Where(s => s.Date >= DateTime.Now)
+            };
+
+            var userActivities = await query.ToListAsync();
+
+            return Result<IEnumerable<UserActivityDto>>.Success(userActivities);
         }
         #endregion
 

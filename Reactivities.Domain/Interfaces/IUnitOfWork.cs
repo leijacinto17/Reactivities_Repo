@@ -9,6 +9,7 @@ namespace Domain.Interfaces
         IPhotoRepository Photos { get; }
         ICommentRepository Comments { get; }
         IUserFollowingsRepository UserFollowings { get; }
+        IActivityAttendeeRepository ActivityAttendee { get; }
         Task<bool> SaveChangesAsync();
     }
 }
