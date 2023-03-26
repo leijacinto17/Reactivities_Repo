@@ -75,3 +75,37 @@ To learn React, check out the [React documentation](https://reactjs.org/).
 
 
 ## Need to polish (automatic changing of profile in Activities, infinite loop when theres no activities)
+
+
+## it is okay to use SQL Server but when deploying in HEROKU SQL server is not free so for this training we are using POSTRESQL since HEROKU provides free for this DB
+
+
+## creating POSTGRE in docker
+## docker run --name dev -e POSTGRES_USER=admin -e POSTGRES_PASSWORD=1nF0b@hn -p 5432:5432 -d postgres:latest
+
+
+## deploying in docker container 
+## docker build -t leijacinto17/reactivities .
+## note leijacinto17 is the username in docker reactivities would be the repo name
+
+## after successfully deploy try to run the image
+## docker run --rm -it -p 8080:80 leijacinto17/reactivities
+
+## push to docker repo
+## docker login
+## docker push leijacinto17/reactivities:latest
+
+## if deploying in fly.io
+## install first the flyio using this command in powershell
+## powershell -Command iwr https://fly.io/install.ps1 -useb | iex
+
+## after installation
+
+## flyctl auth login (this is to login your account in fly io)
+
+## flyctl launch --image leijacinto17/reactivities:latest
+
+## after the command success
+
+## go to fly.toml modify some config there specially the environment variables
+
