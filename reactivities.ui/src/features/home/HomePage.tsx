@@ -63,7 +63,7 @@ export default observer(function HomePage() {
               content="Login with Facebook"
               laoding={userStore.fbLoading}
               onSuccess={(response: any) => {
-                // userStore.facebookLogin(response.accessToken);
+                userStore.facebookLogin(response.accessToken);
               }}
               onFail={(response: any) => {
                 console.log("Login Failed", response);
