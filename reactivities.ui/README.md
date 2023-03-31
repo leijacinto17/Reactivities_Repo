@@ -111,3 +111,18 @@ To learn React, check out the [React documentation](https://reactjs.org/).
 
 ## flyctl auth token (to get the fly api token)
 
+## store sensitive variable 
+## flyctl secrets set (name of variable)
+## flyctl secrets set Facebook__ApiSecret=bf0d1b481ff483fb1a3b435fd22b70e9
+
+
+## add facebook login
+## yarn add @greatsumini/react-facebook-login
+
+## make localhost to https
+## choco install mkcert
+## mkcert localhost
+
+
+
+## run dotnet api dotnet watch --no-hot-reload

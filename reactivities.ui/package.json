@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@greatsumini/react-facebook-login": "^3.3.2",
     "@microsoft/signalr": "^7.0.3",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
@@ -39,7 +40,7 @@
     "yup": "^1.0.2"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "set HTTPS=true&&set SSL_CRT_FILE=localhost.pem&&set SSL_KEY_FILE=localhost-key.pem&&react-scripts start",
     "build": "react-scripts build",
     "postbuild": "rimraf ../Reactivities.API/wwwroot && move build ../Reactivities.API/wwwroot",
     "test": "react-scripts test",

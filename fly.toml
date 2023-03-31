@@ -12,6 +12,7 @@ primary_region = "hkg"
   ASPNETCORE_URLS="http://+:8080"
   Cloudinary__CloudName="dfumh6pll"
   Cloudinary__ApiKey="117311434635955"
+  Facebook__AppId="1656669308087452"
 
 [experimental]
   allowed_public_ports = []

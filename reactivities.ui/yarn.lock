@@ -1227,6 +1227,11 @@
     "@babel/runtime" "^7.10.4"
     react-is "^16.6.3"
 
+"@greatsumini/react-facebook-login@^3.3.2":
+  version "3.3.2"
+  resolved "https://registry.yarnpkg.com/@greatsumini/react-facebook-login/-/react-facebook-login-3.3.2.tgz#7f55edf7b0555b367788d472f22fbdf0fa2c0a94"
+  integrity sha512-wU5XCSnoQz+fUqC5cm5K2hm4UZt0wbeFd4BaDwAYu0R6mWHY3jRv3QYUCbGT4w4Oa7ZGq3gs3E6N3KVLqek8tA==
+
 "@humanwhocodes/config-array@^0.11.8":
   version "0.11.8"
   resolved "https://registry.yarnpkg.com/@humanwhocodes/config-array/-/config-array-0.11.8.tgz#03595ac2075a4dc0f191cc2131de14fbd7d410b9"
