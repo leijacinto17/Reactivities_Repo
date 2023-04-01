@@ -51,6 +51,7 @@ app.UseCsp(opt => opt
                 .ImageSources(s => s.Self().CustomSources("https://res.cloudinary.com"))
                 .ScriptSources(s => s.Self().CustomSources("sha256-HIgflxNtM43xg36bBIUoPTUuo+CXZ319LsTVRtsZ/VU="))
                 .ImageSources(s => s.Self().CustomSources(
+                    "blob:",
                     "data:",
                     "https://res.cloudinary.com",
                     "https://www.facebook.com",
