@@ -61,7 +61,7 @@ export default observer(function HomePage() {
               inverted
               color="facebook"
               content="Login with Facebook"
-              laoding={userStore.fbLoading}
+              loading={userStore.fbLoading}
               onSuccess={(response: any) => {
                 userStore.facebookLogin(response.accessToken);
               }}
