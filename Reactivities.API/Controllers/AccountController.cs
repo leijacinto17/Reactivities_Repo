@@ -1,10 +1,12 @@
 ﻿using API.Services;
 using Application.DTOs.Accounts;
+using Azure;
 using Domain.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
 using Reactivities.Application.DTOs.Accounts;
 using Reactivities.Domain.Models;
 using System.Security.Claims;
@@ -17,7 +19,7 @@ namespace API.Controllers
     {
         private readonly UserManager<User> _userManager;
         private readonly TokenService _tokenService;
-        private readonly IConfiguration _configuration;
+        private readonly IConfiguration _config;
         private readonly HttpClient _httpClient;
 
         public AccountController(UserManager<User> userManager,
@@ -26,10 +28,10 @@ namespace API.Controllers
         {
             _userManager = userManager;
             _tokenService = tokenService;
-            _configuration = configuration;
+            _config = configuration;
             _httpClient = new HttpClient()
             {
-                BaseAddress = new Uri("https://graph.facebook.com")
+                BaseAddress = new System.Uri("https://graph.facebook.com")
             };
         }
 
@@ -94,16 +96,20 @@ namespace API.Controllers
         }
 
         [AllowAnonymous]
-        [HttpPost("fbLogin")]
+        [HttpPost("FacebookLogin")]
         public async Task<ActionResult<UserDto>> FacebookLogin(string accessToken)
         {
-            var fbVerifyKeys = _configuration["Facebook:AppId"] + "|" + _configuration["Facebook:ApiSecret"];
+            var fbVerifyKeys = _config["Facebook:AppId"] + "|" + _config["Facebook:ApiSecret"];
 
-            var verifyTokenResponse = await _httpClient.GetAsync($"debug_token?input_token{accessToken}&accessToken={fbVerifyKeys}");
+            var verifyToken = await _httpClient.GetAsync($"debug_token?input_token={accessToken}&access_token={fbVerifyKeys}");
 
-            if (!verifyTokenResponse.IsSuccessStatusCode) return Unauthorized();
+            if (!verifyToken.IsSuccessStatusCode) return Unauthorized();
 
-            var fbUrl = $"me?access_token={accessToken}&fields=name, email, picture.width(100).height(100)";
+            var fbUrl = $"me?access_token={accessToken}&fields=name,email,picture.width(100).height(100)";
+
+            var response = await _httpClient.GetAsync(fbUrl);
+
+            if (!response.IsSuccessStatusCode) return Unauthorized();
 
             var fbInfo = await _httpClient.GetFromJsonAsync<FacebookDto>(fbUrl);
 
