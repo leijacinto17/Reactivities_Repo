@@ -10,7 +10,7 @@ export default observer(function ActivityList() {
 
   return (
     <>
-      {groupActivities.map(([group, activities]) => (
+      {groupActivities !== null && groupActivities.map(([group, activities]) => (
         <Fragment key={group}>
           <Header sub color="teal">
             {group}

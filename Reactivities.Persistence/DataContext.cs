@@ -17,6 +17,7 @@ namespace Infrastructure
         public virtual DbSet<Photo> Photos { get; set; }
         public virtual DbSet<Comment> Comments { get; set; }
         public virtual DbSet<UserFollowing> UserFollowings { get; set; }
+        public virtual DbSet<RefreshToken> RefreshTokens { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
